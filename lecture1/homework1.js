@@ -8,7 +8,7 @@ const createUser = (user, secret, message) => {
     const obj = {
         user,
         msg: hashedMessage
-    }
+    };
 
     return fs.appendFile('./file.js', "\n" + JSON.stringify([obj], null, 2), 
         (err) => {

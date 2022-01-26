@@ -4,15 +4,19 @@
  * Module dependencies.
  */
 
+const mongoose =  require('mongoose');
+
+const MONGO_URI = 'mongodb+srv://1234:1234@cluster0.u2uu1.mongodb.net/homework?retryWrites=true&w=majority'
+
 var app = require('../app');
-var debug = require('debug')('advancedexample:server');
+var debug = require('debug')('simpleexample:server');
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '3033');
 app.set('port', port);
 
 /**
@@ -87,4 +91,17 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+
+  mongoose.connect(
+    MONGO_URI, 
+    {useNewUrlParser: true, useUnifiedTopology: true}
+  )
+  .then(result => {
+    app.listen(process.env.PORT || 3000, () => {
+      console.log("Server running on port 3000");
+    });
+  })
+  .catch(err => {
+    console.log(err);
+  })
 }
